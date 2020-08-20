@@ -1,4 +1,4 @@
-version: '3'
+version: '3.7'
 services:
   web:
     build: .
@@ -7,3 +7,16 @@ services:
       - "80:80"
     volumes:
       - .:/app
+    links:
+      - database
+    depends_on:
+      - database
+  database:
+    image: mongo
+    container_name: database
+    environment:
+      - MONGO_INITDB_DATABASE=urlShortener
+      - MONGO_INITDB_ROOT_USERNAME=test
+      - MONGO_INITDB_ROOT_PASSWORD=test
+    ports:
+      - 27018:27017

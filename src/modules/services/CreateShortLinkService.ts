@@ -1,21 +1,17 @@
 import ILinksRepository from "../repositories/LinksRepository/ILinksRepository";
 import Link from "../repositories/LinksRepository/models/Link";
+import { injectable, inject } from "tsyringe";
+import { link } from "fs";
 
 interface IRequest {
   userId: string;
   url: string;
 }
 
-interface IResponse {
-  id: number;
-  url: string;
-  hits: 0;
-  shortUrl: string;
-}
-
+@injectable()
 export default class CreateShortLinkService {
   constructor (
-    private linksRepository: ILinksRepository
+    @inject('LinksRepository') private linksRepository: ILinksRepository
   ) {}
   async execute({
     url,
