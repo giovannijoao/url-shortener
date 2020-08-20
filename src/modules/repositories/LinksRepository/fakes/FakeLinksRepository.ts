@@ -18,4 +18,8 @@ export default class FakeLinksRepository implements ILinksRepository {
     this.links.push(link);
     return link;
   }
+
+  public async findByShortId(shortId: string): Promise<Link | undefined> {
+    return this.links.find(p => p.shortId === shortId);
+  }
 }

@@ -34,4 +34,11 @@ export class MongoDBLinksRepository implements ILinksRepository {
     await collection.insertOne({ ...link })
     return link;
   }
+
+  public async findByShortId(shortId: string): Promise<Link | undefined> {
+    const link = await this.client.db().collection('links').findOne({
+      shortId,
+    })
+    return link;
+  }
 }

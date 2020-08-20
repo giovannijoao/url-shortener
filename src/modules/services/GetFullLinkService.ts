@@ -3,24 +3,18 @@ import Link from "../repositories/LinksRepository/models/Link";
 import { injectable, inject } from "tsyringe";
 
 interface IRequest {
-  userId: string;
-  url: string;
+  shortId: string;
 }
 
 @injectable()
-export default class CreateShortLinkService {
+export default class GetFullLinkService {
   constructor (
     @inject('LinksRepository') private linksRepository: ILinksRepository
   ) {}
   async execute({
-    url,
-    userId
-  }: IRequest): Promise<Link> {
-    const link = await this.linksRepository.create({
-      url,
-      userId,
-    });
-
+    shortId,
+  }: IRequest): Promise<Link | undefined> {
+    const link = await this.linksRepository.findByShortId(shortId);
     return link;
   }
 }

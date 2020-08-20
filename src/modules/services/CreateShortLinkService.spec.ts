@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import CreateShortLinkService from "./CreateShortLinkService"
 import FakeLinksRepository from "../repositories/LinksRepository/fakes/FakeLinksRepository";
 

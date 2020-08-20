@@ -3,6 +3,7 @@ import "./container";
 import express from 'express';
 import { ServerConfig } from '../configs/server';
 import usersRouter from '../modules/infra/routes/users.routes';
+import urlsRouter from "../modules/infra/routes/urls.routes";
 const api = express();
 
 const { port: PORT } = ServerConfig;
@@ -20,6 +21,7 @@ api.get('/', (req, res) => {
   })
 })
 
+api.use('/urls', urlsRouter)
 api.use('/users', usersRouter)
 
 api.listen(PORT, () => {
