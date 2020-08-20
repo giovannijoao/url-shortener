@@ -1,0 +1,15 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/giovannijoao/url-shortener.git",
+  "author": "João Giovanni <joao.oliveira@maltacobrancas.com.br>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^14.6.0",
+    "typescript": "^3.9.7"
+  },
+  "scripts": {
+    "build": "tsc"
+  }
+}
