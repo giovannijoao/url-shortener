@@ -4,13 +4,6 @@ import CreateUserService from "../../services/CreateUserService";
 import CreateShortLinkService from "../../services/CreateShortLinkService";
 import GetStats from "../../services/GetStats";
 
-interface ICreateLinkResponse {
-  id: number;
-  url: string;
-  hits: number;
-  shortUrl: string;
-}
-
 export default class UsersController {
   public async createUser(req: Request, res: Response): Promise<Response> {
     const createUser = container.resolve(
@@ -35,7 +28,7 @@ export default class UsersController {
       url,
       userId
     });
-    const responseBody: ICreateLinkResponse = {
+    const responseBody = {
       ...linkInformations,
       shortUrl: `${req.protocol}://${req.get('host')}/urls/${shortId}`
     }
@@ -49,6 +42,16 @@ export default class UsersController {
     const reports = await getStats.execute({
       userId
     });
-    return res.json(reports);
+    const response = {
+      hits: reports.hits,
+      urlCount: reports.urlCount,
+      topUrls: reports.topUrls.map(link => ({
+        id: link.id,
+        hits: link.hits,
+        url: link.url,
+        shortUrl: `${req.protocol}://${req.get('host')}/urls/${link.shortId}`
+      }))
+    }
+    return res.json(response);
   }
 }

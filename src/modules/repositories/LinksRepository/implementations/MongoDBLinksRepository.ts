@@ -32,8 +32,19 @@ export class MongoDBLinksRepository implements ILinksRepository {
     const link = await client.db().collection('links').findOne({
       shortId,
     })
+    delete link._id;
     return link;
   }
+
+  public async findById(id: number): Promise<Link | undefined> {
+    const client = DatabaseConnection.getDb();
+    const link = await client.db().collection('links').findOne({
+      id,
+    })
+    delete link._id;
+    return link;
+  }
+
   public async save(link: Link): Promise<Link> {
     const client = DatabaseConnection.getDb();
     const saved = await client.db().collection('links').findOneAndUpdate({

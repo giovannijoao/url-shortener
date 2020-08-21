@@ -24,6 +24,10 @@ export default class FakeLinksRepository implements ILinksRepository {
     return this.links.find(p => p.shortId === shortId);
   }
 
+  public async findById(id: number): Promise<Link | undefined> {
+    return this.links.find(p => p.id === id);
+  }
+
   public async save(link: Link): Promise<Link> {
     const index = this.links.findIndex(l => l.shortId === link.shortId);
     this.links[index] = link;
