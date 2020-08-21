@@ -33,4 +33,14 @@ export class MongoDBLinksRepository implements ILinksRepository {
     })
     return link;
   }
+  public async save(link: Link): Promise<Link> {
+    const client = DatabaseConnection.getDb();
+    const saved = await client.db().collection('links').findOneAndUpdate({
+      shortId: link.shortId,
+    }, {
+      $set: link,
+    });
+    return saved.value;
+  }
+
 }

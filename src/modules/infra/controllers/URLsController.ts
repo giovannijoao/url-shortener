@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 import GetFullLinkService from "../../services/GetFullLinkService";
 
 export default class LinksController {
-  public async show(req: Request, res: Response): Promise<Response | void> {
+  public async show(req: Request, res: Response): Promise<void> {
     const getFullLink = container.resolve(
       GetFullLinkService,
     );
@@ -11,13 +11,6 @@ export default class LinksController {
     const link = await getFullLink.execute({
       shortId,
     });
-    console.log(link);
-    if (link) {
-      return res.redirect(link.url);
-    } else {
-      return res.status(404).json({
-        message: 'Rota não encontrada'
-      })
-    }
+    return res.redirect(link.url);
   }
 }
