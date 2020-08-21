@@ -9,7 +9,7 @@ interface IRequest {
 }
 
 @injectable()
-export default class GetStatus {
+export default class GetStats {
   constructor(
     @inject('LinksRepository') private linksRepository: ILinksRepository,
     @inject('UsersRepository') private usersRepository: IUsersRepository

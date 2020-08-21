@@ -54,6 +54,7 @@ export class MongoDBLinksRepository implements ILinksRepository {
     });
     return saved.value;
   }
+
   public async getStats({
     userId
   }: IGetStatusDTO): Promise<IGetStatusResponse> {
@@ -87,4 +88,10 @@ export class MongoDBLinksRepository implements ILinksRepository {
     }
   }
 
+  public async delete(id: number): Promise<void> {
+    const client = DatabaseConnection.getDb();
+    client.db().collection('links').remove({
+      id,
+    })
+  }
 }

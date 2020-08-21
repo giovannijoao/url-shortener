@@ -8,4 +8,5 @@ export default interface ILinksRepository {
   findByShortId(shortId: string): Promise<Link | undefined>;
   save(data: Link): Promise<Link>;
   getStats(data: IGetStatusDTO): Promise<IGetStatusResponse>;
+  delete(id: number): Promise<void>;
 }

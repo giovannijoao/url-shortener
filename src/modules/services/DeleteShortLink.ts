@@ -8,17 +8,17 @@ interface IRequest {
 }
 
 @injectable()
-export default class GetStatusByID {
+export default class DeleteShortLink {
   constructor(
     @inject('LinksRepository') private linksRepository: ILinksRepository,
   ) {}
   async execute({
     id
-  }: IRequest): Promise<Link> {
+  }: IRequest): Promise<void> {
     const report = await this.linksRepository.findById(id);
     if (!report) {
       throw new AppError('URL não existe.', 404);
     }
-    return report;
+    await this.linksRepository.delete(id);
   }
 }

@@ -57,4 +57,8 @@ export default class FakeLinksRepository implements ILinksRepository {
     }
     return reports;
   }
+
+  public async delete(id: number): Promise<void> {
+    this.links = this.links.filter(l => l.id !== id);
+  }
 }
