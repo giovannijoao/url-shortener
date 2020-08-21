@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { container } from 'tsyringe';
 import CreateUserService from "../../services/CreateUserService";
 import CreateShortLinkService from "../../services/CreateShortLinkService";
+import GetStats from "../../services/GetStats";
 
 interface ICreateLinkResponse {
   id: number;
@@ -39,5 +40,15 @@ export default class UsersController {
       shortUrl: `${req.protocol}://${req.get('host')}/urls/${shortId}`
     }
     return res.json(responseBody)
+  }
+  public async getStats(req: Request, res: Response): Promise<Response> {
+    const getStats = container.resolve(
+      GetStats,
+    );
+    const { userId } = req.params;
+    const reports = await getStats.execute({
+      userId
+    });
+    return res.json(reports);
   }
 }
