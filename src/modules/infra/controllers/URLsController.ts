@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import GetFullLinkService from "../../services/GetFullLinkService";
-import DeleteShortLink from "../../services/DeleteShortLink";
+import DeleteShortLinkService from "../../services/DeleteShortLinkService";
 
 export default class URLsController {
   public async show(req: Request, res: Response): Promise<void> {
@@ -16,7 +16,7 @@ export default class URLsController {
   }
   public async delete(req: Request, res: Response): Promise<Response> {
     const deleteShortLink = container.resolve(
-      DeleteShortLink,
+      DeleteShortLinkService,
     );
     const { id } = req.params;
     await deleteShortLink.execute({

@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import CreateUserService from "../../services/CreateUserService";
 import CreateShortLinkService from "../../services/CreateShortLinkService";
 import GetStats from "../../services/GetStats";
+import DeleteUserService from "../../services/DeleteUserService";
 
 export default class UsersController {
   public async createUser(req: Request, res: Response): Promise<Response> {
@@ -53,5 +54,15 @@ export default class UsersController {
       }))
     }
     return res.json(response);
+  }
+  public async delete(req: Request, res: Response): Promise<Response> {
+    const deleteUser = container.resolve(
+      DeleteUserService,
+    );
+    const { userId } = req.params;
+    await deleteUser.execute({
+      userId,
+    });
+    return res.status(204).send();
   }
 }

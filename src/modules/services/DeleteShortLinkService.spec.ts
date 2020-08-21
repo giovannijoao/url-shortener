@@ -1,14 +1,14 @@
 import "reflect-metadata";
 import FakeLinksRepository from "../repositories/LinksRepository/fakes/FakeLinksRepository";
-import DeleteShortLink from "./DeleteShortLink"
+import DeleteShortLinkService from "./DeleteShortLinkService"
 import AppError from "../../shared/errors/AppError";
 
 let fakeLinksRepository: FakeLinksRepository;
-let deleteShortLink: DeleteShortLink;
+let deleteShortLink: DeleteShortLinkService;
 describe('DeleteShortLink', () => {
   beforeEach(() => {
     fakeLinksRepository = new FakeLinksRepository();
-    deleteShortLink = new DeleteShortLink(fakeLinksRepository)
+    deleteShortLink = new DeleteShortLinkService(fakeLinksRepository)
   })
   it('should be able to delete a link using id', async () => {
     const url = 'https://some-url.com';

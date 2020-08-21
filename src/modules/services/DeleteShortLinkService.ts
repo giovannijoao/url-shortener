@@ -8,7 +8,7 @@ interface IRequest {
 }
 
 @injectable()
-export default class DeleteShortLink {
+export default class DeleteShortLinkService {
   constructor(
     @inject('LinksRepository') private linksRepository: ILinksRepository,
   ) {}
