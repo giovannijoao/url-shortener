@@ -32,7 +32,7 @@ export class MongoDBLinksRepository implements ILinksRepository {
     const link = await client.db().collection('links').findOne({
       shortId,
     })
-    delete link._id;
+    if (link) delete link._id;
     return link;
   }
 
@@ -41,7 +41,7 @@ export class MongoDBLinksRepository implements ILinksRepository {
     const link = await client.db().collection('links').findOne({
       id,
     })
-    delete link._id;
+    if (link) delete link._id;
     return link;
   }
 
