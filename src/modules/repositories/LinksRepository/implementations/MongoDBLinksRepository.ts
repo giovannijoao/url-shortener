@@ -2,6 +2,7 @@ import ILinksRepository from "../ILinksRepository";
 import ICreateLinkDTO from "../dtos/ICreateLinkDTO";
 import Link from "../models/Link";
 import DatabaseConnection from "../../../../shared/databaseConnection";
+import IGetStatusDTO, { IGetStatusResponse } from "../dtos/IGetStatusDTO";
 
 export class MongoDBLinksRepository implements ILinksRepository {
   public async create({
@@ -41,6 +42,38 @@ export class MongoDBLinksRepository implements ILinksRepository {
       $set: link,
     });
     return saved.value;
+  }
+  public async getStats({
+    userId
+  }: IGetStatusDTO): Promise<IGetStatusResponse> {
+    const client = DatabaseConnection.getDb();
+    const collection = client.db().collection('links').aggregate()
+    let countsCursor = client.db().collection('links').aggregate();
+    if (userId) countsCursor = countsCursor.match({
+      userId,
+    })
+    countsCursor = countsCursor.group<IGetStatusResponse>({
+      _id: null,
+      hits: {
+        $sum: '$hits',
+      },
+      urlCount: {
+        $sum: 1
+      },
+    }).project({
+      hits: '$hits',
+      urlCount: '$urlCount',
+    });
+    const topUrlsCursor = collection.sort({
+      hits: -1,
+    }).limit(5);
+    const [counts, topUrls] = await Promise.all([countsCursor.toArray(), topUrlsCursor.toArray()]);
+    const [{ hits, urlCount }] = counts;
+    return {
+      hits,
+      topUrls,
+      urlCount,
+    }
   }
 
 }

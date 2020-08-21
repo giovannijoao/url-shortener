@@ -7,6 +7,7 @@ import usersRouter from '../modules/infra/routes/users.routes';
 import urlsRouter from "../modules/infra/routes/urls.routes";
 import AppError from "./errors/AppError";
 import DatabaseConnection from "./databaseConnection";
+import statsRouter from "../modules/infra/routes/stats.routes";
 DatabaseConnection.connect();
 const api = express();
 
@@ -21,11 +22,12 @@ api.use((req, res, next) => {
 api.get('/', (req, res) => {
   res.send({
     message: 'Hello!'
-  })
-})
+  });
+});
 
-api.use('/urls', urlsRouter)
-api.use('/users', usersRouter)
+api.use('/urls', urlsRouter);
+api.use('/users', usersRouter);
+api.use('/stats', statsRouter);
 
 api.use((err: Error, request: Request, response: Response, _: NextFunction) => {
   if (err instanceof AppError) {
@@ -42,5 +44,5 @@ api.use((err: Error, request: Request, response: Response, _: NextFunction) => {
 });
 
 api.listen(PORT, () => {
-  console.log(`Listening to ${PORT}`)
+  console.log(`Listening to ${PORT}`);
 })
