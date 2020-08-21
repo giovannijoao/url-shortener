@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import LinksController from '../controllers/LinksController';
+import UsersController from '../controllers/UsersController';
 
 const usersRouter = Router();
-const linksController = new LinksController();
-
-usersRouter.post('/:userId/urls', linksController.create)
+const usersController = new UsersController();
+usersRouter.post('/', usersController.createUser)
+usersRouter.post('/:userId/urls', usersController.createShortLink)
 
 export default usersRouter;

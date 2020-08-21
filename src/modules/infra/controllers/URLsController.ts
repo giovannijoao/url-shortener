@@ -4,11 +4,11 @@ import GetFullLinkService from "../../services/GetFullLinkService";
 
 export default class LinksController {
   public async show(req: Request, res: Response): Promise<Response | void> {
-    const createShortLink = container.resolve(
+    const getFullLink = container.resolve(
       GetFullLinkService,
     );
     const { id: shortId } = req.params;
-    const link = await createShortLink.execute({
+    const link = await getFullLink.execute({
       shortId,
     });
     console.log(link);

@@ -1,9 +1,16 @@
 import { container } from "tsyringe";
 import ILinksRepository from "../modules/repositories/LinksRepository/ILinksRepository";
+import IUsersRepository from "../modules/repositories/UsersRepository/IUsersRepository";
 import { MongoDBLinksRepository } from "../modules/repositories/LinksRepository/implementations/MongoDBLinksRepository";
+import { MongoDBUsersRepository } from "../modules/repositories/UsersRepository/implentations/MongoDBUsersRepository";
 
 
-container.registerInstance<ILinksRepository>(
+container.registerSingleton<ILinksRepository>(
   'LinksRepository',
-  container.resolve(MongoDBLinksRepository)
+  MongoDBLinksRepository
+)
+
+container.registerSingleton<IUsersRepository>(
+  'UsersRepository',
+  MongoDBUsersRepository
 )

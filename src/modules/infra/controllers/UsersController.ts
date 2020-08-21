@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { container } from 'tsyringe';
+import CreateUserService from "../../services/CreateUserService";
 import CreateShortLinkService from "../../services/CreateShortLinkService";
 
 interface ICreateLinkResponse {
@@ -9,8 +10,18 @@ interface ICreateLinkResponse {
   shortUrl: string;
 }
 
-export default class LinksController {
-  public async create(req: Request, res: Response): Promise<Response> {
+export default class UsersController {
+  public async createUser(req: Request, res: Response): Promise<Response> {
+    const createUser = container.resolve(
+      CreateUserService,
+    );
+    const { id: userId } = req.body;
+    const user = await createUser.execute({
+      userId
+    });
+    return res.status(201).json(user)
+  }
+  public async createShortLink(req: Request, res: Response): Promise<Response> {
     const createShortLink = container.resolve(
       CreateShortLinkService,
     );
