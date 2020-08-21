@@ -8,7 +8,7 @@ Uma API para encurtar URLs. O funcionamento é bem básico: ela permite criar um
 * NanoID
 * Jest
 
-### Produção
+### Executando o build para produção
 
 Necessária a instalação:
 * Docker
@@ -21,7 +21,7 @@ $ docker-compose up
 
 Por padrão, o Docker irá expor a porta 80.
 
-### Execução dos testes automáticos
+### Executando os testes automáticos
 
 É necessário instalar o NodeJS (v13+) e as dependências de desenvolvimento e depois utilizar o comando `test`.
 
